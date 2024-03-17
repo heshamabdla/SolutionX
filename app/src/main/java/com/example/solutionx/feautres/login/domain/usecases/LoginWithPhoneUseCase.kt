@@ -8,7 +8,8 @@ class LoginWithPhoneUseCase @Inject constructor
     (private val repositoryInterface: RepositoryInterface) {
 
     suspend operator fun invoke(email: String):Person{
-       return repositoryInterface.loginWithEmail(email)
+        //           repositoryInterface.saveLogin(person)
+        return repositoryInterface.loginWithEmail(email)
     }
 
 }

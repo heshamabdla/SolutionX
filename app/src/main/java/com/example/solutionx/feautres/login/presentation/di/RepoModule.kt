@@ -4,6 +4,8 @@ import com.example.solutionx.feautres.login.data.datasource.localDS.LoginLocalDS
 import com.example.solutionx.feautres.login.data.datasource.localDS.LoginLocalDSInterface
 import com.example.solutionx.feautres.login.data.datasource.romteDS.LoginRemoteDS
 import com.example.solutionx.feautres.login.data.datasource.romteDS.LoginRemoteDSInterface
+import com.example.solutionx.feautres.login.data.repository.RepositoryImpl
+import com.example.solutionx.feautres.login.domain.repository.RepositoryInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,10 +26,11 @@ object RepoModule {
 
 
 
-//        @Provides
-//        fun provideRemoteRepo(loginRemoteDSInterface: LoginRemoteDSInterface):RemoteRepositoryInterface{
-//            return RemoteRepositoryImpl(loginRemoteDSInterface)
-//        }
+        @Provides
+        fun provideRepo(loginRemoteDSInterface: LoginRemoteDSInterface,
+                        loginLocalDSInterface: LoginLocalDSInterface):RepositoryInterface{
+            return RepositoryImpl(loginRemoteDSInterface,loginLocalDSInterface)
+        }
 //
 //        @Provides
 //        fun provideLocalRepo(loginLocalDSInterface: LoginLocalDSInterface):LocalRepositoryInterface{
