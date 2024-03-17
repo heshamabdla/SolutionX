@@ -1,13 +1,18 @@
 package com.example.solutionx.feautres.login.data.repository
 
+import com.example.solutionx.feautres.login.data.datasource.localDS.LoginLocalDSInterface
 import com.example.solutionx.feautres.login.data.datasource.romteDS.LoginRemoteDSInterface
 import com.example.solutionx.feautres.login.data.mapper.MapperPersonDtoToPerson.toPerson
+import com.example.solutionx.feautres.login.data.mapper.MapperPersonDtoToPerson.toPersonDto
 import com.example.solutionx.feautres.login.domain.models.Person
-import com.example.solutionx.feautres.login.domain.repository.RemoteRepositoryInterface
+import com.example.solutionx.feautres.login.domain.repository.RepositoryInterface
+import java.security.PrivateKey
 
-class RemoteRepositoryImpl(
-   private val loginRemoteDSInterface: LoginRemoteDSInterface
-) :RemoteRepositoryInterface{
+class RepositoryImpl(
+   private val loginRemoteDSInterface: LoginRemoteDSInterface,
+    private val loginLocalDSInterface: LoginLocalDSInterface
+) :RepositoryInterface{
+
 
     override suspend fun loginWithEmail(email: String): Person {
         return loginRemoteDSInterface.loginWithEmail(email).toPerson()
@@ -19,5 +24,9 @@ class RemoteRepositoryImpl(
 
     override suspend fun loginWithSocial(email: String): Person {
         return loginRemoteDSInterface.loginWithSocial(email).toPerson()
+    }
+
+    override suspend fun saveLogin(person: Person) {
+        loginLocalDSInterface.saveLogin(person.toPersonDto().accessToken)
     }
 }

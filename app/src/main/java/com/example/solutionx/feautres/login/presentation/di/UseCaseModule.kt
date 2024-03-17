@@ -1,6 +1,5 @@
 package com.example.solutionx.feautres.login.presentation.di
 
-import com.example.solutionx.feautres.login.domain.repository.RemoteRepositoryInterface
 import com.example.solutionx.feautres.login.domain.usecases.LoginWithEmailUseCase
 import com.example.solutionx.feautres.login.domain.usecases.LoginWithPhoneUseCase
 import com.example.solutionx.feautres.login.domain.usecases.LoginWithSocialUseCase
