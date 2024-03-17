@@ -8,10 +8,10 @@ import javax.inject.Inject
 class LoginWithSocialUseCase @Inject constructor
     (private val repositoryInterface: RepositoryInterface) {
     suspend operator fun invoke(email: String):Person{
-        val person=repositoryInterface.loginWithSocial(email)
+//        val person=repositoryInterface.loginWithSocial(email)
 
-
-        return  repositoryInterface.saveLogin(person.toPersonDto().accessToken)
+//        repositoryInterface.saveLogin(person.toPersonDto().accessToken)
+        return  repositoryInterface.loginWithSocial(email)
     }
 
 }
