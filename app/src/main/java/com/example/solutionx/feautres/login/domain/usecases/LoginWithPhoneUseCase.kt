@@ -1,13 +1,14 @@
 package com.example.solutionx.feautres.login.domain.usecases
 
 import com.example.solutionx.feautres.login.domain.models.Person
+import com.example.solutionx.feautres.login.domain.repository.RepositoryInterface
 import javax.inject.Inject
 
 class LoginWithPhoneUseCase @Inject constructor
-    (private val remoteRepositoryInterface: RemoteRepositoryInterface) {
+    (private val repositoryInterface: RepositoryInterface) {
 
     suspend operator fun invoke(email: String):Person{
-       return remoteRepositoryInterface.loginWithEmail(email)
+       return repositoryInterface.loginWithEmail(email)
     }
 
 }
