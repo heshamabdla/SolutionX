@@ -1,70 +1,46 @@
 package com.example.solutionx.feautres.login.presentation
 
+import com.example.solutionx.feautres.login.domain.models.Person
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.solutionx.feautres.login.domain.models.Person
-import com.example.solutionx.feautres.login.domain.usecases.LoginWithEmail
-import com.example.solutionx.feautres.login.domain.usecases.LoginWithPhone
-import com.example.solutionx.feautres.login.domain.usecases.LoginWithSocial
-import com.example.solutionx.feautres.login.presentation.mapper.toLoginResponse
-import com.example.solutionx.feautres.login.presentation.mapper.toPerson
-import com.example.solutionx.feautres.login.presentation.models.LoginResponse
+import com.example.solutionx.feautres.login.domain.usecases.LoginWithEmailUseCase
+import com.example.solutionx.feautres.login.domain.usecases.LoginWithPhoneUseCase
+import com.example.solutionx.feautres.login.domain.usecases.LoginWithSocialUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
 class MainViewModel
-    (
-)
-    :ViewModel() {
+   @Inject constructor (
+    private val loginWithEmail: LoginWithEmailUseCase,
+    private val loginWithPhone: LoginWithPhoneUseCase,
+    private val loginWithSocial: LoginWithSocialUseCase
+):ViewModel() {
 
-        private val _dataLogin:MutableStateFlow<LoginResponse?> =MutableStateFlow(null)
-        val dataLogin:StateFlow<LoginResponse?> =_dataLogin
-
-       private lateinit var loginWithEmail: LoginWithEmail
-        private lateinit var loginWithPhone: LoginWithPhone
-       private lateinit var loginWithSocial: LoginWithSocial
+        private val _dataLogin:MutableStateFlow<Person?> =MutableStateFlow(null)
+        val dataLogin:StateFlow<Person?> =_dataLogin
 
 
-//    init {
-//        initPerson()
-//    }
-//
-//    private fun initPerson(){
-//                _dataLogin.value=loginWithEmail.loginWithEmail()
-//
-//      }
+        fun loginWithEmail(email: String){
+            viewModelScope.launch {
+                _dataLogin.value = loginWithEmail.invoke(email)
+            }
+        }
 
-       // loginResponse sent from View
-    private val person=LoginResponse(1,"ahmed","a@gmail.com"
-        ,"","").toPerson()
+        fun loginWithPhone(phone: String) {
+            viewModelScope.launch {
+                _dataLogin.value = loginWithPhone.invoke(phone)
+            }
+        }
 
-
-    fun sendDataToUseCase():Person{
-        return person
-    }
-
-    fun getPerson(){
-        loginWithEmail.sendDataToRepo().toLoginResponse()
-    }
-
-
-
-
-
-
-
-
-//    fun loginWithPhoneNumberloginResponse: LoginResponse){
-//        //
-//        loginResponse.toPerson()
-//
-//
-//    }
-//    fun loginWithSocialMedia(accessToken:String){
-//        //
-//
-//    }
+        fun loginWithSocial(email: String){
+            viewModelScope.launch {
+                _dataLogin.value = loginWithSocial.invoke(email)
+            }
+        }
 
 
 

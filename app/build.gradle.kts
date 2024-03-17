@@ -1,6 +1,10 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id ("kotlin-kapt")
+    id ("dagger.hilt.android.plugin")
+
+
 }
 
 android {
@@ -49,4 +53,17 @@ dependencies {
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+
+    //hilt
+    implementation ("com.google.dagger:hilt-android:2.40.5")
+    kapt ("com.google.dagger:hilt-android-compiler:2.40.5")
+
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+
+
 }

@@ -1,0 +1,43 @@
+package com.example.solutionx.feautres.login.presentation.di
+
+import com.example.solutionx.feautres.login.data.datasource.localDS.LoginLocalDS
+import com.example.solutionx.feautres.login.data.datasource.localDS.LoginLocalDSInterface
+import com.example.solutionx.feautres.login.data.datasource.romteDS.LoginRemoteDS
+import com.example.solutionx.feautres.login.data.datasource.romteDS.LoginRemoteDSInterface
+import com.example.solutionx.feautres.login.data.repository.LocalRepositoryImpl
+import com.example.solutionx.feautres.login.data.repository.RemoteRepositoryImpl
+import com.example.solutionx.feautres.login.domain.repository.LocalRepositoryInterface
+import com.example.solutionx.feautres.login.domain.repository.RemoteRepositoryInterface
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+
+@Module
+@InstallIn(SingletonComponent::class)
+object RepoModule {
+
+    @Provides
+    fun provideRemoteRepo(loginRemoteDSInterface: LoginRemoteDSInterface):RemoteRepositoryInterface{
+        return RemoteRepositoryImpl(loginRemoteDSInterface)
+    }
+
+    @Provides
+    fun provideLocalRepo(loginLocalDSInterface: LoginLocalDSInterface):LocalRepositoryInterface{
+        return LocalRepositoryImpl(loginLocalDSInterface)
+    }
+
+
+
+
+//    @Provides
+//    fun provideRemoteRepo(loginRemoteDSInterface: LoginRemoteDSInterface):LoginRemoteDSInterface{
+//        return LoginRemoteDS(loginRemoteDSInterface)
+//    }
+
+//    @Provides
+//    fun provideLocalRepo(loginLocalDSInterface: LoginLocalDSInterface):LoginLocalDSInterface{
+//        return LoginLocalDS(loginLocalDSInterface)
+//    }
+
+}
