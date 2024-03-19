@@ -4,7 +4,7 @@ import com.example.solutionx.feautres.login.domain.models.Person
 
 interface RepositoryInterface {
 
-        suspend fun saveLogin(person:Person)
+        suspend fun saveLogin(accessToken: String)
 
         suspend fun loginWithEmail(email:String): Person
         suspend fun loginWithPhone(phone: String): Person

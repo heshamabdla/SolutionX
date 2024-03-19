@@ -26,7 +26,7 @@ class RepositoryImpl(
         return loginRemoteDSInterface.loginWithSocial(email).toPerson()
     }
 
-    override suspend fun saveLogin(person: Person) {
-        loginLocalDSInterface.saveLogin(person.toPersonDto().accessToken)
+    override suspend fun saveLogin(accessToken: String) {
+        loginLocalDSInterface.saveLogin(accessToken)
     }
 }
