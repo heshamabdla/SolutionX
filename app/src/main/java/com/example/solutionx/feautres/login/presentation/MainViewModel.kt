@@ -8,8 +8,10 @@ import com.example.solutionx.feautres.login.domain.usecases.LoginWithEmailUseCas
 import com.example.solutionx.feautres.login.domain.usecases.LoginWithPhoneUseCase
 import com.example.solutionx.feautres.login.domain.usecases.LoginWithSocialUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -19,33 +21,61 @@ import javax.inject.Inject
 class MainViewModel
    @Inject constructor (
     private val loginWithEmail: LoginWithEmailUseCase,
-//    private val loginWithPhone: LoginWithPhoneUseCase,
-//    private val loginWithSocial: LoginWithSocialUseCase
+    private val loginWithPhone: LoginWithPhoneUseCase,
+    private val loginWithSocial: LoginWithSocialUseCase
 ):ViewModel() {
 
-//    val intentPerson = MutableStateFlow<PersonIntent?>(null)
+    val intentPerson = Channel<PersonIntent> (Channel.UNLIMITED)
 
     private val _loginState: MutableStateFlow<PersonLoginState?> = MutableStateFlow(null)
     val loginState: StateFlow<PersonLoginState?> = _loginState
 
-    lateinit var  s:String
+    lateinit var s: String
+
     init {
-            loginWithEmailAddress(s)
+//       processIntent()
 
-        }
+        loginWithEmailAddress(s)
+    }
 
-    private fun loginWithEmailAddress(email:String) {
+//    private fun processIntent(){
+//        viewModelScope.launch {
+//            intentPerson.collect {
+//                when (it) {
+//                    is PersonIntent.LoginEmail(loginWithEmail
+//                        ) {
+//                        loginWithEmailAddress(s)
+//                    }
+//
+//                    is PersonIntent.LoginPhone(loginWithPhone
+//                        ) {
+//
+//                    }
+//
+//                    is PersonIntent.LoginSocial(loginWithSocial
+//                        ) {
+//
+//                    }
+//
+//                }
+//            }
+//        }
+
+
+    private fun loginWithEmailAddress(email: String) {
         viewModelScope.launch {
-            loginWithEmail.invoke(email).collect(){ r->
-                when(r){
+            loginWithEmail.invoke(email).collect() { r ->
+                when (r) {
                     is Resource.Success -> {
-                        _loginState.value=PersonLoginState(person = r.data)
+                        _loginState.value = PersonLoginState.Success(r.data)
                     }
-                    is Resource.Failure ->{
-                        _loginState.value=PersonLoginState(error= r.message)
+
+                    is Resource.Failure -> {
+                        _loginState.value =  PersonLoginState.Error(r.message)
                     }
-                    is Resource.Loading ->{
-                        _loginState.value=PersonLoginState(isLoading = true)
+
+                    is Resource.Loading -> {
+                        _loginState.value = PersonLoginState.IsLoading(true)
 
                     }
                 }
@@ -53,9 +83,14 @@ class MainViewModel
             }
 
         }
+//        fun process(){
+//            viewModelScope.launch {
+//
+//            }
+
+
     }
-
-
 }
+
 
 

@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.example.solutionx.feautres.login.domain.usecases.LoginWithEmailUseCase
 import com.example.solutionx.feautres.login.presentation.MainViewModel
+import com.example.solutionx.feautres.login.presentation.PersonIntent
 import com.example.solutionx.feautres.login.presentation.PersonLoginState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -48,15 +50,36 @@ class LoginWithEmailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        send()
+        render()
 
-        lifecycleScope.launch {
-            viewModel.loginState.collect() {
-                    when (it){
-//                        is
+    }
+
+    private fun send() {
+//        lifecycleScope.launch {
+//            viewModel.intentPerson.send(
+//                PersonIntent.LoginEmail())
+//        }
+    }
+
+    fun render(){
+            lifecycleScope.launch {
+                viewModel.loginState.collect{
+                        r->
+                    when (r){
+                        is PersonLoginState.IsLoading ->{
+                        }
+                        is PersonLoginState.Success ->{
+
+                        }
+                        is PersonLoginState.Error ->{
+
+                        }
+
+                        else -> {}
                     }
+                }
             }
         }
     }
 
-
-}
