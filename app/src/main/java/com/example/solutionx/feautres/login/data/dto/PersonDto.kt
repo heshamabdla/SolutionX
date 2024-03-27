@@ -1,6 +1,6 @@
 package com.example.solutionx.feautres.login.data.dto
 
-data class PersonDto(
+ data class PersonDto(
     val id:Int,
     val name:String,
     val email:String="",

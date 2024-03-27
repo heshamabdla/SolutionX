@@ -1,32 +1,36 @@
 package com.example.solutionx.feautres.login.data.repository
 
-import com.example.solutionx.feautres.login.data.datasource.localDS.LoginLocalDSInterface
-import com.example.solutionx.feautres.login.data.datasource.romteDS.LoginRemoteDSInterface
+import com.example.mysolutionx.features.login.domain.models.LoginResponse
+import com.example.mysolutionx.features.login.domain.models.User
+import com.example.solutionx.common.domain.Repository.local.ILoginLocalDS
+import com.example.solutionx.feautres.login.domain.repository.datasource.LoginLocalDSInterface
+import com.example.solutionx.feautres.login.domain.repository.datasource.LoginRemoteDSInterface
 import com.example.solutionx.feautres.login.data.mapper.MapperPersonDtoToPerson.toPerson
-import com.example.solutionx.feautres.login.data.mapper.MapperPersonDtoToPerson.toPersonDto
-import com.example.solutionx.feautres.login.domain.models.Person
 import com.example.solutionx.feautres.login.domain.repository.RepositoryInterface
-import java.security.PrivateKey
 
-class RepositoryImpl(
-   private val loginRemoteDSInterface: LoginRemoteDSInterface,
-    private val loginLocalDSInterface: LoginLocalDSInterface
+internal  class RepositoryImpl(
+    private val loginRemoteDSInterface: LoginRemoteDSInterface,
+    private val loginLocalDSInterface: ILoginLocalDS
 ) :RepositoryInterface{
 
-
-    override suspend fun loginWithEmail(email: String): Person {
-        return loginRemoteDSInterface.loginWithEmail(email).toPerson()
+    override suspend fun loginWithPhone(phone: String): LoginResponse {
+        TODO("Not yet implemented")
     }
 
-    override suspend fun loginWithPhone(phone: String): Person {
-        return loginRemoteDSInterface.loginWithPhone(phone).toPerson()
+    override suspend fun saveLogin(loginResponse: LoginResponse) {
+        loginLocalDSInterface.saveLogin(loginResponse)
     }
 
-    override suspend fun loginWithSocial(email: String): Person {
-        return loginRemoteDSInterface.loginWithSocial(email).toPerson()
+
+    override suspend fun getAccessToken(): String {
+       return loginLocalDSInterface.getAccessToken().toString()
     }
 
-    override suspend fun saveLogin(accessToken: String) {
-        loginLocalDSInterface.saveLogin(accessToken)
+    override suspend fun getUser(): User {
+        TODO("Not yet implemented")
+
+//        return loginLocalDSInterface.getUser()
     }
+
+
 }

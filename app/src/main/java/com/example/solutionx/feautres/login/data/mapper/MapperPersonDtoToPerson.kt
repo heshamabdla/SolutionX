@@ -1,9 +1,8 @@
 package com.example.solutionx.feautres.login.data.mapper
 
 import com.example.solutionx.feautres.login.data.dto.PersonDto
-import com.example.solutionx.feautres.login.domain.models.Person
 
-object MapperPersonDtoToPerson {
+internal object MapperPersonDtoToPerson {
     fun PersonDto.toPerson(): Person {
 
         return Person(
