@@ -4,7 +4,7 @@ import com.example.mysolutionx.features.login.domain.models.LoginResponse
 import com.example.mysolutionx.features.login.domain.models.User
 import kotlinx.coroutines.flow.Flow
 
-internal interface ILoginLocalDS {
+ interface ILoginLocalDS {
     suspend fun saveLogin(loginResponse: LoginResponse)
 
     suspend fun getAccessToken():Flow<String?>

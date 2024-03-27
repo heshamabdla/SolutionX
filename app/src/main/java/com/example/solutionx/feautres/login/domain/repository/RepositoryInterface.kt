@@ -10,7 +10,7 @@ interface RepositoryInterface {
 
         suspend fun saveLogin(loginResponse: LoginResponse)
 
-        suspend fun loginWithPhone(phone: String): LoginResponse
+        suspend fun loginWithPhone(hashMap: HashMap<Any,Any>): LoginResponse
 
         suspend fun getAccessToken():String
         suspend fun getUser(): User

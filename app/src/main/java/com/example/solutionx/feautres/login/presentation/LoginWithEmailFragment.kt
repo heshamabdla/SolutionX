@@ -43,7 +43,7 @@ class LoginWithEmailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         send()
-        render()
+//        render()
 
     }
 
@@ -54,23 +54,23 @@ class LoginWithEmailFragment : Fragment() {
 //        }
     }
 
-    fun render(){
-            lifecycleScope.launch {
-                viewModel.loginState.collect{
-                        r->
-                    when (r){
-                        is PersonLoginState.IsLoading ->{
-                        }
-                        is PersonLoginState.Success ->{
-
-                        }
-                        is PersonLoginState.Error ->{
-
-                        }
-
-                        else -> {}
-                    }
-                }
-            }
-        }
+//    fun render(){
+//            lifecycleScope.launch {
+//                viewModel.loginState.collect{
+//                        r->
+//                    when (r){
+//                        is PersonLoginState.IsLoading ->{
+//                        }
+//                        is PersonLoginState.Success ->{
+//
+//                        }
+//                        is PersonLoginState.Error ->{
+//
+//                        }
+//
+//                        else -> {}
+//                    }
+//                }
+//            }
+//        }
     }
