@@ -11,7 +11,6 @@ import com.example.mysolutionx.features.login.domain.models.LoginResponse
 import com.example.mysolutionx.features.login.domain.models.User
 import kotlinx.coroutines.flow.map
 
-
 //const val DataStore_NAME = "PHONEBOOK"
 //
 //val Context.datastore : DataStore< Preferences> by  preferencesDataStore(name = DataStore_NAME)
@@ -24,6 +23,7 @@ import kotlinx.coroutines.flow.map
 //    }
 //    override suspend fun saveLogin(loginResponse: LoginResponse) {
 //        context.datastore.edit { l->
+
 //            l[token] = loginResponse.token
 //            l[message]= loginResponse.message
 ////            l[user]= loginResponse.user

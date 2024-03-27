@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.mysolutionx.common.data.Repository.local.LocalDSImp
 import com.example.mysolutionx.common.data.Repository.remote.ApiService
 import com.example.solutionx.common.domain.Repository.local.ILoginLocalDS
+import com.example.solutionx.common.domain.Repository.remote.ILoginRemoteInterface
 import com.example.solutionx.feautres.login.domain.repository.datasource.LoginLocalDSInterface
 import com.example.solutionx.feautres.login.domain.repository.datasource.LoginRemoteDSInterface
 import com.example.solutionx.feautres.login.data.repository.RepositoryImpl
@@ -31,6 +32,10 @@ loginDI {
     fun provideLocalDS(@ApplicationContext context: Context,gson: Gson): ILoginLocalDS =
           LocalDSImp( context,gson)
     }
+   @Provides
+   fun provideRepository(loginRemoteDSInterface: LoginRemoteDSInterface,loginLocalDSInterface:
+   ILoginLocalDS): RepositoryInterface =RepositoryImpl(loginRemoteDSInterface, loginLocalDSInterface)
+
 
 
     @Provides
